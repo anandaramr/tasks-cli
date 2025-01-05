@@ -2,6 +2,7 @@ import { Task, TaskSchema } from "../schemas/tasks.js";
 
 export async function newTask(name: string) {
     await Task.insertOne({ name, completed: false })
+    console.log(`\x1b[32mCreated new task:\x1b[0m ${name}`)
 }
 
 export async function getAllTasks() {
@@ -22,20 +23,24 @@ export async function getIncompleteTasks() {
     displayTasks(data)
 }
 
-export function deleteTaskById(id: number) {
-    Task.delete({ id })
+export async function deleteTaskById(id: number) {
+    await Task.delete({ id })
+    console.log(`Deleted task ${id}`)
 }
 
-export function deleteAllTasks() {
-    Task.delete()
+export async function deleteAllTasks() {
+    await Task.delete()
+    console.log('Deleted all tasks')
 }
 
-export function completeTask(id: number) {
-    Task.update({ id }, { completed: true })
+export async function completeTask(id: number) {
+    await Task.update({ id }, { completed: true })
+    console.log(`Marked task:${id} as complete`)
 }
 
-export function undoTask(id: number) {
-    Task.update({ id }, { completed: false })
+export async function undoTask(id: number) {
+    await Task.update({ id }, { completed: false })
+    console.log(`Marked task:${id} as incomplete`)
 }
 
 async function getTasks(query?: any) {

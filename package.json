@@ -19,6 +19,7 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
+    "commander": "^13.0.0",
     "fs": "^0.0.1-security"
   }
 }
