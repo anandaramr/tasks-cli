@@ -35,12 +35,12 @@ export async function deleteAllTasks() {
 
 export async function completeTask(id: number) {
     await Task.update({ id }, { completed: true })
-    console.log(`Marked task:${id} as complete`)
+    console.log(`Marked task ${id} as complete`)
 }
 
 export async function undoTask(id: number) {
     await Task.update({ id }, { completed: false })
-    console.log(`Marked task:${id} as incomplete`)
+    console.log(`Marked task ${id} as incomplete`)
 }
 
 async function getTasks(query?: any) {
