@@ -6,12 +6,12 @@ A simple command-line [Node.js](https://nodejs.org/) To-Do app made with [Typesc
 
 Clone the repo
 ```sh
-git clone https://github.com/anandaramr/first-project.git
+git clone https://github.com/anandaramr/tasks-cli.git
 ```
 
 Install all the dependencies
 ```sh
-cd first-project
+cd tasks-cli
 npm install
 ```
 
