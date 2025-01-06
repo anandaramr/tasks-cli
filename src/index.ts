@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { completeTask, deleteAllTasks, deleteTaskById, getAllTasks, getIncompleteTasks, newTask, undoTask } from "./controllers/index.js"
 import { program } from "commander"
+import { controller } from "./controllers/index.js"
 
 program
     .version("v1.0.0")
@@ -19,26 +19,47 @@ program
 const options = program.opts()
 
 if(options.all) {
-    getAllTasks()
+    const data = await controller.getAllTasks()
+    displayTasks(data)
 }
 else if (options.todo) {
-    getIncompleteTasks()
+    const data = await controller.getIncompleteTasks()
+    displayTasks(data)
 }
 else if (options.new) {
-    newTask(options.new)
+    await controller.newTask(options.new)
+    console.log(`\x1b[32mCreated new task:\x1b[0m ${options.new}`)
 }
 else if (options.done) {
     const id = parseInt(options.done)
-    completeTask(id)
+    await controller.completeTask(id)
+    console.log(`Marked task ${id} as complete`)
 }
 else if (options.undo) {
     const id = parseInt(options.undo)
-    undoTask(id)
+    await controller.undoTask(id)
+    console.log(`Marked task ${id} as incomplete`)
 }
 else if (options.delete) {
     const id = parseInt(options.delete)
-    deleteTaskById(id)  
+    await controller.deleteTaskById(id)  
+    console.log(`Deleted task ${id}`)
 }
 else if (options.clear) {
-    deleteAllTasks()  
+    await controller.deleteAllTasks()
+    console.log('Deleted all tasks')
+}
+
+type SchemaType = { id: number } & Object
+
+function displayTasks(data: SchemaType[]) {
+    if (data.length==0) {
+        console.log('\x1b[36mNo tasks found\x1b[0m')
+        return;
+    }
+
+    return data.map((element: SchemaType) => {
+        const { id, ...rest } = element
+        console.log({ id, ...rest })
+    });
 }
