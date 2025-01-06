@@ -47,11 +47,23 @@ export class Database<T> {
         await this.writeData(data)
     }
 
-    private async readData() {
+    public async clear() {
         try {
-            const data = await fs.readFile(this.database, { encoding: 'utf-8' })
-            if(!data) return []
+            await fs.unlink(this.database)
+        } catch(err) {
+            const error = err as FsError
+            if (error.code!='ENOENT') {
+                console.log('error')
+            }
+        }
+    }
 
+    private async readData() {
+        let data
+
+        try {
+            data = await fs.readFile(this.database, { encoding: 'utf-8' })
+            if(!data) return []
             return JSON.parse(data)
         } catch (err) {
             const error = err as FsError
@@ -68,7 +80,7 @@ export class Database<T> {
     private async writeData(content: DataSchema<T>[]) {
         try {
             const data = JSON.stringify(content, null, 4)
-            fs.writeFile(this.database, data)
+            await fs.writeFile(this.database, data)
         } catch (err) {
             console.error(err)
         }

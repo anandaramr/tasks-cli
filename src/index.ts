@@ -19,26 +19,47 @@ program
 const options = program.opts()
 
 if(options.all) {
-    controller.getAllTasks()
+    const data = await controller.getAllTasks()
+    displayTasks(data)
 }
 else if (options.todo) {
-    controller.getIncompleteTasks()
+    const data = await controller.getIncompleteTasks()
+    displayTasks(data)
 }
 else if (options.new) {
-    controller.newTask(options.new)
+    await controller.newTask(options.new)
+    console.log(`\x1b[32mCreated new task:\x1b[0m ${options.new}`)
 }
 else if (options.done) {
     const id = parseInt(options.done)
-    controller.completeTask(id)
+    await controller.completeTask(id)
+    console.log(`Marked task ${id} as complete`)
 }
 else if (options.undo) {
     const id = parseInt(options.undo)
-    controller.undoTask(id)
+    await controller.undoTask(id)
+    console.log(`Marked task ${id} as incomplete`)
 }
 else if (options.delete) {
     const id = parseInt(options.delete)
-    controller.deleteTaskById(id)  
+    await controller.deleteTaskById(id)  
+    console.log(`Deleted task ${id}`)
 }
 else if (options.clear) {
-    controller.deleteAllTasks()  
+    await controller.deleteAllTasks()
+    console.log('Deleted all tasks')
+}
+
+type SchemaType = { id: number } & Object
+
+function displayTasks(data: SchemaType[]) {
+    if (data.length==0) {
+        console.log('\x1b[36mNo tasks found\x1b[0m')
+        return;
+    }
+
+    return data.map((element: SchemaType) => {
+        const { id, ...rest } = element
+        console.log({ id, ...rest })
+    });
 }
