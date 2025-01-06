@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { completeTask, deleteAllTasks, deleteTaskById, getAllTasks, getIncompleteTasks, newTask, undoTask } from "./controllers/index.js"
 import { program } from "commander"
+import { controller } from "./controllers/index.js"
 
 program
     .version("v1.0.0")
@@ -19,26 +19,26 @@ program
 const options = program.opts()
 
 if(options.all) {
-    getAllTasks()
+    controller.getAllTasks()
 }
 else if (options.todo) {
-    getIncompleteTasks()
+    controller.getIncompleteTasks()
 }
 else if (options.new) {
-    newTask(options.new)
+    controller.newTask(options.new)
 }
 else if (options.done) {
     const id = parseInt(options.done)
-    completeTask(id)
+    controller.completeTask(id)
 }
 else if (options.undo) {
     const id = parseInt(options.undo)
-    undoTask(id)
+    controller.undoTask(id)
 }
 else if (options.delete) {
     const id = parseInt(options.delete)
-    deleteTaskById(id)  
+    controller.deleteTaskById(id)  
 }
 else if (options.clear) {
-    deleteAllTasks()  
+    controller.deleteAllTasks()  
 }

@@ -10,7 +10,7 @@ export class Database<T> {
         this.database = `${import.meta.dirname}/${name}.json`
     }
 
-    public async select(query?: any): Promise<T[]> {
+    public async select(query?: any) {
         if (query) {
             return await this.selectData(query)
         }
