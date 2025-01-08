@@ -1,10 +1,13 @@
 import fs from 'node:fs/promises'
 import { FsError } from '../types/FsError'
+import { Mutex } from 'async-mutex'
 
 type DataSchema<T> = { id?: number } & T
+type Query<T> = Partial<DataSchema<T>>
 
 export class Database<T> {
     private database: string
+    private mutex = new Mutex()
 
     constructor (name: string) {
         this.database = `${import.meta.dirname}/${name}.json`
@@ -42,7 +45,7 @@ export class Database<T> {
         await this.writeData(data)
     }
 
-    public async update(query: any, updatedValue: any) {
+    public async update(query: Query<T>, updatedValue: any) {
         const data = await this.updateData(query, updatedValue)
         await this.writeData(data)
     }
@@ -62,63 +65,72 @@ export class Database<T> {
         let data
 
         try {
-            data = await fs.readFile(this.database, { encoding: 'utf-8' })
+            await this.mutex.runExclusive(async () => {
+                data = await fs.readFile(this.database, { encoding: 'utf-8' })
+            })
+
             if(!data) return []
             return JSON.parse(data)
         } catch (err) {
             const error = err as FsError
+
             if (error.code=='ENOENT') {
                 await this.writeData([])
                 return []
             }
 
             console.error("error: ", error)
-            process.exit(1)
+            throw error
         }
     }
 
     private async writeData(content: DataSchema<T>[]) {
+        let data
+        
         try {
-            const data = JSON.stringify(content, null, 4)
-            await fs.writeFile(this.database, data)
+            await this.mutex.runExclusive(async () => {
+                data = JSON.stringify(content, null, 4)
+            })
+
+            await fs.writeFile(this.database, data as unknown as string)
         } catch (err) {
             console.error(err)
         }
     }
 
-    private async filter(query: any) {
+    private async filter(query: Query<T>) {
         const data = await this.readData()
 
         return data.filter((item: any) => {
             for(let key of Object.keys(query)) {
-                if(item[key]!=query[key]) return true;
+                if(item[key]!=query[key as keyof DataSchema<T>]) return true;
             }
             return false
         })
     }
 
-    private async selectData(query: any) {
+    private async selectData(query: Query<T>) {
         const data = await this.readData()
 
         return data.filter((item: any) => {
             for(let key of Object.keys(query)) {
-                if(item[key]==query[key]) return true;
+                if(item[key]==query[key as keyof DataSchema<T>]) return true;
             }
             return false
         })
     }
 
-    private async updateData(query: any, updatedValue: any) {
+    private async updateData(query: Query<T>, updatedValue: any) {
         const data = await this.readData()
 
         return data.map((item: any) => {
             for(let key of Object.keys(query)) {
-                if(item[key]==query[key]) {
-                    return { ...item, ...updatedValue };
+                if(item[key]!=query[key as keyof DataSchema<T>]) {
+                    return item;
                 }
             }
 
-            return item
+            return { ...item, ...updatedValue }
         })
     }
 }

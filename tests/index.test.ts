@@ -8,7 +8,9 @@ describe('Create and read', () => {
     afterAll(clearDB)
     
     it('Should return empty array when tasks are retrieved', async () => {
-        const [ all, incomplete ] = await Promise.all([ controller.getAllTasks(), controller.getIncompleteTasks() ])
+        const all = await controller.getAllTasks()
+        const incomplete = await controller.getIncompleteTasks()
+        
         expect(all).toStrictEqual([])
         expect(incomplete).toStrictEqual([])
     })
@@ -16,7 +18,10 @@ describe('Create and read', () => {
     it('Should create new tasks', async () => {
         await controller.newTask('some task')
         await controller.newTask('some other task')
-        const [ all, incomplete ] = await Promise.all([ controller.getAllTasks(), controller.getIncompleteTasks() ])
+
+        const all = await controller.getAllTasks()
+        const incomplete = await controller.getIncompleteTasks()
+        
         expect(all.length).toBe(2)
         expect(incomplete.length).toBe(2)
     })
