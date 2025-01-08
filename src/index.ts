@@ -9,6 +9,8 @@ program
     .description("Simple command-line to-do app")
     .option("-a, --all", "List all tasks")
     .option("-t, --todo", "List all incomplete tasks")
+    .option("-H, --head [limit]", "Display a subset of tasks retrieved")
+    .option("-c, --count", "Display the number of tasks retrieved")
     .option("-n, --new <NAME>", "Create new task")
     .option("-d, --done <ID>", "Mark task as completed")
     .option("-u, --undo <ID>", "Mark task as incomplete")
@@ -58,8 +60,17 @@ function displayTasks(data: SchemaType[]) {
         return;
     }
 
-    return data.map((element: SchemaType) => {
-        const { id, ...rest } = element
-        console.log({ id, ...rest })
+    if (options.count) {
+        const suffix = options.all ? 'found' : 'to be completed'
+        console.log(`${data.length} tasks ${suffix}`)
+        return
+    }
+
+    const limit = !options.head ? 0 : (typeof options.head=='string' ? parseInt(options.head) : 5)
+    return data.map((element: SchemaType, idx: number) => {
+        if(!options.head || idx<limit) {
+            const { id, ...rest } = element
+            console.log({ id, ...rest })
+        } 
     });
 }

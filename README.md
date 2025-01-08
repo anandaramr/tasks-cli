@@ -32,13 +32,15 @@ v1.0.0
 Usage: tasks [options]
 
 Options:
-  -V, --version      output the version number
-  -a, --all          List all tasks
-  -t, --todo         List all incomplete tasks
-  -n, --new <NAME>   Create new task
-  -d, --done <ID>    Mark task as completed
-  -u, --undo <ID>    Mark task as incomplete
-  -D, --delete <ID>  Delete a task
-  -C, --clear        Delete all tasks
-  -h, --help         display help for command
+  -V, --version       output the version number
+  -a, --all           List all tasks
+  -t, --todo          List all incomplete tasks
+  -H, --head [limit]  Display a subset of tasks retrieved
+  -c, --count         Display the number of tasks retrieved
+  -n, --new <NAME>    Create new task
+  -d, --done <ID>     Mark task as completed
+  -u, --undo <ID>     Mark task as incomplete
+  -D, --delete <ID>   Delete a task
+  -C, --clear         Delete all tasks
+  -h, --help          display help for command
 ```
