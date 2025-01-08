@@ -5,7 +5,7 @@ import { testDb } from "./mock/db";
 const controller = new TaskController(testDb)
 
 describe('Create and read', () => {
-    afterAll(clearDB)
+    afterAll(async () => await clearDB())
     
     it('Should return empty array when tasks are retrieved', async () => {
         const [ all, incomplete ] = await Promise.all([ controller.getAllTasks(), controller.getIncompleteTasks() ])
@@ -26,7 +26,7 @@ describe('Create and read', () => {
 })
 
 describe('Mark as complete or incomplete', async () => {
-    afterAll(clearDB)
+    afterAll(async () => await clearDB())
     
     beforeAll(async () => {
         await controller.newTask('some task')
@@ -44,7 +44,7 @@ describe('Mark as complete or incomplete', async () => {
 })
 
 describe('Should be able to create and delete tasks', async () => {
-    afterAll(clearDB)
+    afterAll(async () => await clearDB())
     beforeAll(async () => {
         for (let i=0; i<5; i++) {
             await controller.newTask(i.toString())
