@@ -11,7 +11,8 @@
     "build": "tsc",
     "prelink": "tsc",
     "link": "npm link",
-    "test": "vitest"
+    "test": "vitest",
+    "test:no-watch": "vitest run"
   },
   "keywords": [],
   "author": "",
