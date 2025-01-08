@@ -85,14 +85,12 @@ export class Database<T> {
     }
 
     private async writeData(content: DataSchema<T>[]) {
-        let data
-        
-        try {
-            await this.mutex.runExclusive(async () => {
-                data = JSON.stringify(content, null, 4)
-            })
 
-            await fs.writeFile(this.database, data as unknown as string)
+        try {
+            const data = JSON.stringify(content, null, 4)
+            await this.mutex.runExclusive(async () => {
+                await fs.writeFile(this.database, data as unknown as string)
+            })
         } catch (err) {
             console.error(err)
         }
