@@ -50,40 +50,40 @@ Commands:
 
 ### Listing tasks
 ```
-    Usage: tasks list [options]
+Usage: tasks list [options]
 
-    Options:
-        -t, --todo          Display only incomplete tasks
-        -H, --head [limit]  Display only first [limit] number of tasks
-        -c, --count         Display the number of tasks retrieved
-        -s, --search <key>  Search for task
-        -h, --help          display help for command
+Options:
+	-t, --todo          Display only incomplete tasks
+	-H, --head [limit]  Display only first [limit] number of tasks
+	-c, --count         Display the number of tasks retrieved
+	-s, --search <key>  Search for task
+	-h, --help          display help for command
 ```
 
 ### Create tasks
 ```
-    Usage: tasks new [options] <name>
+Usage: tasks new [options] <name>
 
-    Options:
-        -h, --help  display help for command
+Options:
+	-h, --help  display help for command
 ```
 
 ### Update task status
 ```
-    Usage: tasks update [options] <ID>
+Usage: tasks update [options] <ID>
 
-    Options:
-        -d, --done  Mark task as completed
-        -u, --undo  Mark task as incomplete
-        -h, --help  display help for command
+Options:
+	-d, --done  Mark task as completed
+	-u, --undo  Mark task as incomplete
+	-h, --help  display help for command
 ```
 
 ### Delete tasks
 ```
-    Usage: tasks delete [options]
+Usage: tasks delete [options]
 
-    Options:
-        -i, --id <ID>  Delete task by ID
-        -a, --all      Delete all tasks
-        -h, --help     display help for command
+Options:
+	-i, --id <ID>  Delete task by ID
+	-a, --all      Delete all tasks
+	-h, --help     display help for command
 ```
