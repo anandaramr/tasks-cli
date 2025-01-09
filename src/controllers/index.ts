@@ -19,7 +19,10 @@ export class TaskController {
     
     async getIncompleteTasks() {
         const data = await this.getTasks({ completed: false })
-        return data
+        return data.map((item: TaskSchema) => {
+            const { completed, ...rest } = item
+            return rest
+        })
     }
     
     async deleteTaskById(id: number) {

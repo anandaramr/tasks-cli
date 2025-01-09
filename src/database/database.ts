@@ -24,7 +24,7 @@ export class Database<T> {
         let data = await this.readData()
 
         const insertValue = value as DataSchema<T>
-        if (!insertValue.id) insertValue.id = data.length + 1
+        if (!insertValue.id) insertValue.id = data.length>0 ? data[data.length-1].id + 1 : 1
         data.push(insertValue)
         this.writeData(data)
     }
