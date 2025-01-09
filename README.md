@@ -36,7 +36,7 @@ v1.0.0
 Usage:
 	tasks [options] [command]
 
-Options: 
+Options:
 	-V, --version          output the version number
     -h, --help             display help for command
 
@@ -52,7 +52,7 @@ Commands:
 ```yaml
     Usage: tasks list [options]
 
-    Options: 
+    Options:
 		-t, --todo          Display only incomplete tasks
         -H, --head [limit]  Display only first [limit] number of tasks
         -c, --count         Display the number of tasks retrieved
@@ -64,7 +64,7 @@ Commands:
 ```yaml
     Usage: tasks new [options] <name>
 
-    Options: 
+    Options:
 		-h, --help  display help for command
 ```
 
@@ -72,7 +72,7 @@ Commands:
 ```yaml
     Usage: tasks update [options] <ID>
 
-    Options: 
+    Options:
 		-d, --done  Mark task as completed
         -u, --undo  Mark task as incomplete
         -h, --help  display help for command
@@ -82,7 +82,7 @@ Commands:
 ```yaml
     Usage: tasks delete [options]
 
-    Options: 
+    Options:
 		-i, --id <ID>  Delete task by ID
         -a, --all      Delete all tasks
         -h, --help     display help for command
