@@ -34,14 +34,14 @@ v1.0.0
 
 ```
 Usage:
-	tasks [options] [command]
+    tasks [options] [command]
 
-Options:
-	-V, --version          output the version number
+Options: 
+    -V, --version          output the version number
     -h, --help             display help for command
 
 Commands: 
-	list [options]         Display tasks
+    list [options]         Display tasks
     new <name>             Create new task
     update [options] <ID>  Update task status
     delete [options]       Delete tasks
@@ -53,7 +53,7 @@ Commands:
     Usage: tasks list [options]
 
     Options:
-		-t, --todo          Display only incomplete tasks
+        -t, --todo          Display only incomplete tasks
         -H, --head [limit]  Display only first [limit] number of tasks
         -c, --count         Display the number of tasks retrieved
         -s, --search <key>  Search for task
@@ -65,7 +65,7 @@ Commands:
     Usage: tasks new [options] <name>
 
     Options:
-		-h, --help  display help for command
+        -h, --help  display help for command
 ```
 
 ### Update task status
@@ -73,7 +73,7 @@ Commands:
     Usage: tasks update [options] <ID>
 
     Options:
-		-d, --done  Mark task as completed
+        -d, --done  Mark task as completed
         -u, --undo  Mark task as incomplete
         -h, --help  display help for command
 ```
@@ -83,7 +83,7 @@ Commands:
     Usage: tasks delete [options]
 
     Options:
-		-i, --id <ID>  Delete task by ID
+        -i, --id <ID>  Delete task by ID
         -a, --all      Delete all tasks
         -h, --help     display help for command
 ```
