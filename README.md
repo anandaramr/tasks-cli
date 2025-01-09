@@ -32,7 +32,7 @@ v1.0.0
 
 ## Commands
 
-```yaml
+```
 Usage:
 	tasks [options] [command]
 
@@ -49,7 +49,7 @@ Commands:
 ```
 
 ### Listing tasks
-```yaml
+```
     Usage: tasks list [options]
 
     Options:
@@ -61,7 +61,7 @@ Commands:
 ```
 
 ### Create tasks
-```yaml
+```
     Usage: tasks new [options] <name>
 
     Options:
@@ -69,7 +69,7 @@ Commands:
 ```
 
 ### Update task status
-```yaml
+```
     Usage: tasks update [options] <ID>
 
     Options:
@@ -79,7 +79,7 @@ Commands:
 ```
 
 ### Delete tasks
-```yaml
+```
     Usage: tasks delete [options]
 
     Options:
